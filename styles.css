@@ -1,0 +1,330 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background: url('./images/candy-crush-bg.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+.title-image, .bottom-logo {
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    margin-bottom: 40px;
+    object-fit: contain;
+    animation: imagePulse 3s infinite ease-in-out;
+}
+
+.subtitle-image {
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    margin: 20px 0 30px 0;
+    object-fit: cover;
+    display: block;
+    z-index: 1;
+}
+
+.game-subtitle-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 5px 0 15px 0;
+    object-fit: contain;
+    display: block;
+}
+
+.bottom-logo {
+    width: 60%;
+    max-width: 300px;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 0;
+    object-fit: contain;
+}
+
+.subtitle {
+    color: #fff;
+    font-size: clamp(18px, 4vw, 24px);
+    margin: 0 0 120px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Ubuntu,;
+}
+
+.tagline {
+    color: #FFD700;
+    font-family: 'Bubblegum Sans', 'Comic Sans MS', cursive;
+    font-size: clamp(40px, 5vw, 40px);
+    text-align: center;
+    margin: -20px 0 50px 0;
+    padding: 0 60px;
+    text-shadow: 
+        3px 3px 0 #FF1493,
+        -3px -3px 0 #FF1493,
+        3px -3px 0 #FF1493,
+        -3px 3px 0 #FF1493,
+        6px 6px 0 rgba(0, 0, 0, 0.2);
+    line-height: 1.0;
+    max-width: 800px;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: rotate(-2deg) translateY(0); }
+    50% { transform: rotate(-2deg) translateY(-10px); }
+}
+
+@keyframes imagePulse {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.02);
+        filter: brightness(1.1);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+#start-button {
+    font-family: 'Permanent Marker', cursive;
+    padding: 20px 60px;
+    background-color: #ff69b4;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 
+                inset 0 -3px 0 rgba(255, 105, 180, 0.5);
+    text-align: center;
+    font-size: clamp(42px, 4vw, 28px);
+    color: #fff;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid #ff1493;
+    background-image: linear-gradient(to top, #ff69b4, #ffb6c1);
+    animation: pulse 1.5s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+#start-button:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: reflection 3s infinite;
+}
+
+#start-button:hover {
+    background-color: #ffb6c1;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3),
+                inset 0 -3px 0 rgba(255, 182, 193, 0.5);
+    transform: translateY(-2px);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes reflection {
+    0% {
+        left: -150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+#game-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#score {
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    font-size: clamp(40px, 4vw, 24px);
+    margin: 10px 0;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 10px auto;
+    width: min(95vw, 400px);
+    aspect-ratio: 1;
+}
+
+.candy {
+    width: 100%;
+    aspect-ratio: 1;
+    transition: transform 0.3s ease;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    background-color: rgba(255, 255, 255, 0.5);
+    touch-action: none;
+    user-select: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.candy.falling {
+    animation: dropIn 0.5s ease-in;
+}
+
+@keyframes dropIn {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.candy.matched {
+    animation: popAndFade 0.5s ease-out forwards;
+}
+
+@keyframes popAndFade {
+    0% { 
+        transform: scale(1); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: scale(1.2); 
+        opacity: 0.8; 
+    }
+    100% { 
+        transform: scale(0); 
+        opacity: 0; 
+    }
+}
+
+.candy.swapping {
+    animation: swapAnimation 0.3s ease-in-out;
+}
+
+@keyframes swapAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    #game-container {
+        margin-top: 5px;
+    }
+    
+    #game-board {
+        width: 95vw;
+        max-width: 95vw;
+    }
+    
+    .candy {
+        border-width: 1px;
+    }
+}
+
+@media (max-height: 700px) {
+    .bottom-logo {
+        width: 40%;
+        margin-top: 10px;
+    }
+    
+    #score {
+        margin: 5px 0;
+    }
+}
+
+.subtitle-image, .game-subtitle-image {
+    width: 70%;
+    max-width: 400px;
+    height: auto;
+    margin: 10px 0 30px 0;
+    object-fit: contain;
+}
+
+.game-subtitle-image {
+    width: 60%;
+    max-width: 300px;
+    margin: 5px 0 15px 0;
+}
+
+@media (max-width: 768px) {
+    .subtitle-image {
+        width: 80%;
+        margin: 5px 0 20px 0;
+    }
+    
+    .game-subtitle-image {
+        width: 70%;
+        margin: 5px 0 10px 0;
+    }
+}
